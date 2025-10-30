@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+.ipynb_checkpoints/
+
+# App caches
+.cache/
+HF_HOME/
+TRANSFORMERS_CACHE/
+
+# Data and large artifacts
+/data/
+models/*
+!models/.gitkeep
+runs/
+*.pt
+*.onnx
+
+# Node/web
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Jupyter
+*.ipynb
+
+# Build
+dist/
+build/

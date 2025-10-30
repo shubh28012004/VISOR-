@@ -1,0 +1,58 @@
+:root {
+  --bg: #0b1020;
+  --fg: #e6eef8;
+  --muted: #9bb1c9;
+  --accent: #7cc4ff;
+  --panel: #131a2c;
+  --ok: #64e1a7;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--fg);
+  background: radial-gradient(1000px 600px at 20% -10%, #14203e, transparent), var(--bg);
+}
+
+.hidden { display: none !important; }
+
+header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #1e2744;
+}
+header h1 { margin: 0; font-size: 28px; letter-spacing: 0.5px; }
+header p { margin: 6px 0 0; color: var(--muted); }
+
+main { padding: 16px 24px; max-width: 1100px; margin: 0 auto; }
+.controls {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 16px;
+}
+.controls button { background: var(--panel); border: 1px solid #233055; color: var(--fg); padding: 10px 14px; border-radius: 10px; cursor: pointer; }
+.controls button:hover { border-color: var(--accent); }
+.controls label { display: inline-flex; gap: 8px; align-items: center; background: var(--panel); border: 1px solid #233055; padding: 8px 10px; border-radius: 10px; }
+.controls input[type="number"], .controls input[type="text"] { background: transparent; color: var(--fg); border: none; outline: none; width: 220px; }
+.controls .toggle { gap: 6px; }
+
+.stage { display: grid; grid-template-columns: 1fr 320px; gap: 16px; align-items: start; }
+.video-wrap { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid #233055; background: #0f1530; }
+#video, #overlay { width: 100%; height: auto; display: block; }
+#overlay { position: absolute; inset: 0; }
+
+.panel { background: var(--panel); border: 1px solid #233055; border-radius: 12px; padding: 12px; }
+.panel .stat { margin-bottom: 10px; }
+.panel strong { color: var(--accent); font-weight: 600; }
+.panel p { margin: 6px 0 0; color: var(--fg); }
+.det-list ul { list-style: none; padding: 0; margin: 6px 0 0; max-height: 260px; overflow: auto; }
+.det-list li { padding: 6px 8px; border-radius: 8px; background: #0f1530; border: 1px solid #1f2947; margin-bottom: 6px; }
+.det-list li .cls { color: var(--ok); font-weight: 600; }
+.det-list li .conf { color: var(--muted); }
+
+footer { padding: 16px 24px; color: var(--muted); border-top: 1px solid #1e2744; margin-top: 12px; }
+
+@media (max-width: 960px) {
+  .stage { grid-template-columns: 1fr; }
+}
+
+

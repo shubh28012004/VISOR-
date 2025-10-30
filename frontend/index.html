@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VISOR - Guiding Shield</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <header>
+    <h1>VISOR</h1>
+    <p>AI-Powered Guiding Shield for Vision</p>
+  </header>
+
+  <main>
+    <section class="controls">
+      <button id="startBtn">Start Camera</button>
+      <button id="stopBtn" disabled>Stop</button>
+      <label>
+        Interval (ms)
+        <input id="intervalMs" type="number" min="250" step="250" value="1500" />
+      </label>
+      <label>
+        Question (optional)
+        <input id="question" type="text" placeholder="What is in front of me?" />
+      </label>
+      <button id="micBtn" title="Ask by voice">🎤 Ask</button>
+      <label class="toggle">
+        <input id="speakToggle" type="checkbox" checked /> Speak captions
+      </label>
+      <label class="toggle">
+        <input id="speakVqaToggle" type="checkbox" checked /> Speak VQA answers
+      </label>
+      <label class="toggle">
+        <input id="vqaToggle" type="checkbox" /> Enable VQA
+      </label>
+      <label class="toggle">
+        <input id="assistantToggle" type="checkbox" /> Assistant mode
+      </label>
+      <label class="toggle">
+        <input id="guideToggle" type="checkbox" /> Guide me (obstacle updates)
+      </label>
+      <span id="assistantStatus" style="padding:6px 10px;border:1px solid #233055;border-radius:10px;">Assistant: Off</span>
+      <span id="guideStatus" style="padding:6px 10px;border:1px solid #233055;border-radius:10px;">Guide: Off</span>
+    </section>
+
+    <section class="stage">
+      <div class="video-wrap">
+        <video id="video" autoplay playsinline></video>
+        <canvas id="overlay"></canvas>
+      </div>
+      <div class="panel">
+        <div class="stat"><strong>Caption</strong><p id="caption">—</p></div>
+        <div class="stat"><strong>VQA</strong><p id="vqa">—</p></div>
+        <div class="det-list">
+          <strong>Detections</strong>
+          <ul id="detections"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Backend: <code>/analyze</code> • Health: <code>/health</code> • <a href="/ui/about.html" style="color:#7cc4ff; text-decoration:none;">About</a></p>
+  </footer>
+
+  <canvas id="hiddenCanvas" style="display:none"></canvas>
+</body>
+</html>
+
+
