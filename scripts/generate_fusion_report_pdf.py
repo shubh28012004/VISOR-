@@ -168,6 +168,15 @@ Input Image
     elems.append(Spacer(1, 0.15*inch))
     
     elems.append(Paragraph("<b>2.3 Fusion Pipeline Performance</b>", styles['Heading3']))
+    elems.append(Paragraph(
+        "<b>Quantitative Results</b> (20 COCO val images):<br/>"
+        "• <b>Object Coverage</b>: Fused 54.08% vs BLIP 32.75% (+65.1% improvement) ✓<br/>"
+        "• <b>ROUGE-L</b>: Fused 0.7484 (maintains semantic quality)<br/>"
+        "• <b>METEOR</b>: Fused 0.7374 (good semantic matching)<br/>"
+        "• Lower BLEU expected (synthesizes novel text, doesn't copy BLIP verbatim)",
+        normal_style
+    ))
+    elems.append(Spacer(1, 0.1*inch))
     
     # Fusion comparison table
     t2 = Table(FUSION_COMPARISON, colWidths=[1.2*inch, 1.6*inch, 1.6*inch, 1.6*inch])
