@@ -107,10 +107,30 @@ The following graphs are available in `run/yolov8{n,s,m}/`:
 | **Naturalness** | Good | Poor (list format) | **Excellent (sentences)** |
 | **TTS Optimization** | Fair | Poor | **Excellent (concise, natural)** |
 
-**Quantitative Metrics** (future work):
-- BLEU/ROUGE scores comparing fused vs. individual outputs
-- Human evaluation scores for clarity and accuracy
-- Latency measurements for end-to-end fusion pipeline
+**Quantitative Metrics**:
+
+Evaluation script available: `scripts/evaluate_fusion.py`
+
+Metrics computed:
+- **BLEU-1/2/3/4**: n-gram overlap with ground truth captions
+- **ROUGE-L**: Longest common subsequence similarity
+- **METEOR**: Synonym-aware semantic matching
+- **Object Coverage**: Percentage of detected objects mentioned in narrative
+
+To run evaluation:
+```bash
+python scripts/evaluate_fusion.py --num_images 50 \
+  --image_dir data/coco/images/val2017 \
+  --captions_json data/coco/annotations/captions_val2017.json \
+  --output run/fusion_evaluation_results.json
+```
+
+Expected improvements (fused vs. BLIP alone):
+- Higher object coverage (better integration of detections)
+- Comparable or improved BLEU/ROUGE-L/METEOR (semantic quality maintained/improved)
+- More natural language structure (qualitative)
+
+See `run/FUSION_METRICS_README.md` for detailed metrics documentation.
 
 ## 3. Integration of Gemini 2.5 Flash
 
