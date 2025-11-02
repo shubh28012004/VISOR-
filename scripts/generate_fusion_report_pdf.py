@@ -27,6 +27,14 @@ FUSION_COMPARISON = [
     ["TTS Optimization", "Fair", "Poor", "Excellent (concise, natural)"],
 ]
 
+FUSION_METRICS = [
+    ["Metric", "BLIP Caption", "Fused Narrative", "Detections (text)"],
+    ["BLEU-4", "0.9781", "0.4366", "0.0152"],
+    ["ROUGE-L", "1.0000", "0.7484", "0.1028"],
+    ["METEOR", "0.9968", "0.7374", "0.0533"],
+    ["Object Coverage", "0.3275", "0.5408 ✓", "1.0000"],
+]
+
 def build_pdf(out_path: Path):
     styles = getSampleStyleSheet()
     
@@ -169,14 +177,37 @@ Input Image
     
     elems.append(Paragraph("<b>2.3 Fusion Pipeline Performance</b>", styles['Heading3']))
     elems.append(Paragraph(
-        "<b>Quantitative Results</b> (20 COCO val images):<br/>"
-        "• <b>Object Coverage</b>: Fused 54.08% vs BLIP 32.75% (+65.1% improvement) ✓<br/>"
-        "• <b>ROUGE-L</b>: Fused 0.7484 (maintains semantic quality)<br/>"
-        "• <b>METEOR</b>: Fused 0.7374 (good semantic matching)<br/>"
-        "• Lower BLEU expected (synthesizes novel text, doesn't copy BLIP verbatim)",
+        "<b>Quantitative Evaluation Results</b> (20 COCO val images):",
+        styles['Heading4']
+    ))
+    
+    # Fusion metrics table
+    t_metrics = Table(FUSION_METRICS, colWidths=[1.2*inch, 1.3*inch, 1.3*inch, 1.2*inch])
+    t_metrics.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#233055')),
+        ('TEXTCOLOR', (0,0), (-1,0), colors.HexColor('#e6eef8')),
+        ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+        ('FONTNAME', (0,0), (-1,0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0,0), (-1,0), 9),
+        ('FONTSIZE', (0,1), (-1,-1), 9),
+        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor('#233055')),
+        ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.white, colors.HexColor('#f6f8fc')]),
+        ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+        ('LEFTPADDING', (0,0), (-1,-1), 4),
+        ('RIGHTPADDING', (0,0), (-1,-1), 4),
+        ('TOPPADDING', (0,0), (-1,-1), 6),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 6),
+    ]))
+    elems.append(t_metrics)
+    elems.append(Spacer(1, 0.1*inch))
+    
+    elems.append(Paragraph(
+        "<b>Key Finding</b>: Object Coverage improved by <b>+65.1%</b> (Fused: 54.08% vs BLIP: 32.75%)<br/>"
+        "Fused narrative maintains semantic quality (ROUGE-L: 0.7484, METEOR: 0.7374) while incorporating "
+        "significantly more detected objects. Lower BLEU scores are expected as fusion synthesizes novel text.",
         normal_style
     ))
-    elems.append(Spacer(1, 0.1*inch))
+    elems.append(Spacer(1, 0.15*inch))
     
     # Fusion comparison table
     t2 = Table(FUSION_COMPARISON, colWidths=[1.2*inch, 1.6*inch, 1.6*inch, 1.6*inch])
